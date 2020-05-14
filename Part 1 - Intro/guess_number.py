@@ -1,8 +1,10 @@
+import random
+
 print("* * * * * * * * * * * * * * * * * * * *")
 print("* Welcome to the Guessing Number Game *")
 print("* * * * * * * * * * * * * * * * * * * *")
 
-secret_number = 42
+secret_number = random.randrange(1, 101)
 max_n_tries = 3
 
 for round in range(1, max_n_tries+1):
