@@ -5,7 +5,18 @@ print("* Welcome to the Guessing Number Game *")
 print("* * * * * * * * * * * * * * * * * * * *")
 
 secret_number = random.randrange(1, 101)
-max_n_tries = 3
+max_n_tries = 0
+points = 1000
+
+print("Level Settings: (1) Easy (2) Normal (3) Hard")
+level = int(input("Select your level: "))
+
+if (level == 1):
+    max_n_tries = 20
+elif (level == 2):
+    max_n_tries = 10
+else:
+    max_n_tries = 5
 
 for round in range(1, max_n_tries+1):
     print("Round {} of {}".format(round, max_n_tries))
@@ -22,9 +33,11 @@ for round in range(1, max_n_tries+1):
     smaller = guess < secret_number
 
     if (won):
-        print("You won!!")
+        print("You won and got {}!!".format(points))
         break
     else:
+        lost_points = secret_number - guess
+        points = points - lost_points
 
         if (bigger):
             print("You lost! Keep in mind that your guess was bigger than the secret number")
@@ -32,5 +45,8 @@ for round in range(1, max_n_tries+1):
             print("You lost! Keep in mind that your guess was smaller than the secret number")
 
     round += 1
+    if (round == max_n_tries+1):
+        print("The secret number was {}. You scored {} points".format(secret_number, points))
+        break
 
 print("Game Over")
