@@ -1,15 +1,29 @@
+import random
+
 def play():
     print("* * * * * * * * * * * * * * * *")
     print("* Welcome to the Hangman Game *")
     print("* * * * * * * * * * * * * * * *")
 
-    secret_word = "banana".upper()
+    file = open("words.txt", "r")
+    words = []
+
+    for lines in file:
+        lines = lines.strip()
+        words.append(lines)
+
+    file.close()
+
+    number_words = random.randrange(0, len(words))
+    secret_word = words[number_words].upper()
     good_guesses = ["_" for letter in secret_word]
 
     hanged = False
     won = False
     failed_tries = 0
     all_guesses = []
+
+    print(good_guesses)
 
     while not won and not hanged:
 
@@ -22,11 +36,12 @@ def play():
             print("You already used this one. Try another letter")
             continue
 
-        index = 0
-        for letter in secret_word:
-            if letter == user_letter:
-                good_guesses[index] = letter
-            index += 1
+        if user_letter in secret_word:
+            index = 0
+            for letter in secret_word:
+                if letter == user_letter:
+                    good_guesses[index] = letter
+                index += 1
         else:
             failed_tries += 1
 
