@@ -1,39 +1,89 @@
 import random
 
-def play():
+
+def display_intro_msg():
     print("* * * * * * * * * * * * * * * *")
     print("* Welcome to the Hangman Game *")
     print("* * * * * * * * * * * * * * * *")
 
-    file = open("words.txt", "r")
-    words = []
 
+def load_secret_word(file):
+    words = []
+    file = open("words.txt", "r")
     for lines in file:
         lines = lines.strip()
         words.append(lines)
-
     file.close()
-
     number_words = random.randrange(0, len(words))
-    secret_word = words[number_words].upper()
+    return words[number_words].upper()
+
+
+def check_letter_used(user_letter, all_guesses):
+    if user_letter not in all_guesses:
+        all_guesses.append(user_letter)
+        return False
+    else:
+        print("You already used this one. Try another letter")
+        return True
+
+
+def get_user_guess():
+    user_guess = input("What is your guess?:")
+    user_guess = user_guess.strip().upper()
+    return user_guess
+
+
+def winning_message():
+    print("Congrats! You won!")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
+
+
+def defeat_message(secret_word):
+    print("You just got HANGED!")
+    print("The secret word was {}".format(secret_word))
+    print("    _______________         ")
+    print("   /               \       ")
+    print("  /                 \      ")
+    print("//                   \/\  ")
+    print("\|   XXXX     XXXX   | /   ")
+    print(" |   XXXX     XXXX   |/     ")
+    print(" |   XXX       XXX   |      ")
+    print(" |                   |      ")
+    print(" \__      XXX      __/     ")
+    print("   |\     XXX     /|       ")
+    print("   | |           | |        ")
+    print("   | I I I I I I I |        ")
+    print("   |  I I I I I I  |        ")
+    print("   \_             _/       ")
+    print("     \_         _/         ")
+    print("       \_______/           ")
+
+
+def play():
+    display_intro_msg()
+    secret_word = load_secret_word("words.txt")
     good_guesses = ["_" for letter in secret_word]
 
     hanged = False
     won = False
     failed_tries = 0
     all_guesses = []
-
     print(good_guesses)
 
     while not won and not hanged:
 
-        user_letter = input("What is your guess?:")
-        user_letter = user_letter.strip().upper()
+        user_letter = get_user_guess()
 
-        if user_letter not in all_guesses:
-            all_guesses.append(user_letter)
-        else:
-            print("You already used this one. Try another letter")
+        if check_letter_used(user_letter, all_guesses):
             continue
 
         if user_letter in secret_word:
@@ -53,12 +103,9 @@ def play():
         print(good_guesses)
 
     if won:
-        print("You win!")
-        print(good_guesses)
+        winning_message()
     else:
-        print("You lost!")
-
-    print("Game Over")
+        defeat_message(secret_word)
 
 
 if (__name__ == "__main__"):
