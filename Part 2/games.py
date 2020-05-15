@@ -1,4 +1,5 @@
 import guess_number
+import hangman
 
 def escolhe_jogo():
     print("*********************************")
@@ -10,7 +11,8 @@ def escolhe_jogo():
     jogo = int(input("Which game you want to play? "))
 
     if (jogo == 1):
-        print("Game not implemented yet")
+        print("Playing Hangman!")
+        hangman.play()
 
     elif (jogo == 2):
         print("Playing Guess the Number!")
