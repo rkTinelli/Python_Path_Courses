@@ -10,11 +10,18 @@ class Account:
     def view_balance(self):
         print("Current balance is {} for {}'s account".format(self.__balance, self.__owner))
 
-    def deposit(self, valor):
-        self.__balance += valor
+    def __can_withdraw(self, value_to_get):
+        available_to_get = self.__balance + self.__limit
+        return value_to_get <= available_to_get
 
     def withdraw(self, valor):
-        self.__balance -= valor
+        if self.__can_withdraw(valor):
+            self.__balance -= valor
+        else:
+            print("The value {} is over the limit".format(valor))
+
+    def deposit(self, valor):
+        self.__balance += valor
 
     def transfer(self, valor, receiver):
         self.withdraw(valor)
@@ -35,3 +42,11 @@ class Account:
     @limit.setter
     def limit(self, new_limit):
         self.__limit = new_limit
+
+    @staticmethod
+    def bank_code():
+        return "001"
+
+    @staticmethod
+    def all_bank_codes():
+        return {'BB': '001', 'Caixa': '104', 'Bradesco': '237'}
