@@ -1,51 +1,46 @@
-class Movie:
+class Program:
+    def __init__(self, name, year):
+        self._name = name.title()
+        self.year = year
+        self._likes = 0
+
+    @property
+    def likes(self):
+        return self._likes
+
+    def receive_likes(self):
+        self._likes += 1
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def nome(self, name):
+        self._name = name
+
+
+class Movie(Program):
     def __init__(self, name, year, length):
-        self.__name = name.title()
-        self.year = year
+        super().__init__(name, year)
         self.length = length
-        self.__likes = 0
-
-    @property
-    def likes(self):
-        return self.__likes
-
-    def receive_likes(self):
-        self.__likes += 1
-
-    @property
-    def name(self):
-        return self.__name
-
-    @name.setter
-    def nome(self, name):
-        self.__name = name
 
 
-class Serie:
+class Series(Program):
     def __init__(self, name, year, seasons):
-        self.__name = name.title()
-        self.year = year
+        super().__init__(name, year)
         self.seasons = seasons
-        self.__likes = 0
-
-    @property
-    def likes(self):
-        return self.__likes
-
-    def receive_likes(self):
-        self.__likes += 1
-
-    @property
-    def name(self):
-        return self.__name
-
-    @name.setter
-    def nome(self, name):
-        self.__name = name
 
 
 avengers = Movie('Avengers - Infinity War', 2018, 160)
-print(avengers.name)
+atlanta = Series('atlanta', 2018, 2)
 
-atlanta = Serie('atlanta', 2018, 2)
-print(f'Name: {atlanta.name} - Year: {atlanta.year}')
+avengers.receive_likes()
+avengers.receive_likes()
+avengers.receive_likes()
+
+atlanta.receive_likes()
+atlanta.receive_likes()
+
+print(f'Name: {avengers.name} - Likes: {avengers.likes}')
+print(f'Name: {atlanta.name} - Likes: {atlanta.likes}')
