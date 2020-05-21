@@ -1,8 +1,11 @@
-class Program:
+class Show:
     def __init__(self, name, year):
         self._name = name.title()
         self.year = year
         self._likes = 0
+
+    def __str__(self):
+        return f'Name: {self._name} - Likes: {self._likes}'
 
     @property
     def likes(self):
@@ -20,19 +23,25 @@ class Program:
         self._name = name
 
 
-class Movie(Program):
+class Movie(Show):
     def __init__(self, name, year, length):
         super().__init__(name, year)
         self.length = length
 
+    def __str__(self):
+        return f'Name: {self._name} - {self.length} min - Likes: {self._likes}'
 
-class Series(Program):
+
+class Series(Show):
     def __init__(self, name, year, seasons):
         super().__init__(name, year)
         self.seasons = seasons
 
+    def __str__(self):
+        return f'Name: {self._name} - {self.seasons} seasons - Likes: {self._likes}'
 
-avengers = Movie('Avengers - Infinity War', 2018, 160)
+
+avengers = Movie('Avengers Infinity War', 2018, 160)
 atlanta = Series('atlanta', 2018, 2)
 
 avengers.receive_likes()
@@ -42,5 +51,7 @@ avengers.receive_likes()
 atlanta.receive_likes()
 atlanta.receive_likes()
 
-print(f'Name: {avengers.name} - Likes: {avengers.likes}')
-print(f'Name: {atlanta.name} - Likes: {atlanta.likes}')
+playlist = [avengers,atlanta]
+
+for show in playlist:
+    print(show)
