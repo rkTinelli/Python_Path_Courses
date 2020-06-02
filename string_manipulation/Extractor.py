@@ -45,11 +45,25 @@ class ExtractorArgUrl():
         value = self.url[init_index_valeu:]
         return value
 
+    def __eq__(self,anotherInstance):
+      return self.url == anotherInstance.url
+
+    def __len__(self):
+      return len(self.url)
+
+    def __str__(self):
+        moedaOrigem,moedaDestino = self.get_arguments()
+        representacaoString2 = "Valor:" + self.get_value() + " " + moedaOrigem + " " + moedaDestino
+        representacaoString  = "Valor: {}\n Moeda Origem: {} \n Moeda Destino: {} \n".format(self.get_value(),moedaOrigem,moedaDestino)
+        return representacaoString
 
 if __name__ == "__main__":
-
+    
     url = "https://bytebank.com/cambio?moedaorigem=real&moedadestino=dolar&valor=1500"
     arg = ExtractorArgUrl(url)
     original_currency, future_currency = arg.get_arguments()
     currency_amount = arg.get_value()
     print(future_currency +"\t"+ original_currency +"\t"+ currency_amount)
+    print(arg)
+    print(len(arg))
+    
