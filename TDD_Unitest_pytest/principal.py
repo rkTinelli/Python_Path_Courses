@@ -8,8 +8,8 @@ lance_do_gui =Lance(gui, 150.00)
 
 leilao = Leilao('Celular')
 
-leilao.lances.append(lance_do_yuri)
-leilao.lances.append(lance_do_gui)
+leilao.propoe(lance_do_yuri)
+leilao.propoe(lance_do_gui)
 
 for lance in leilao.lances:
     print(f'O Usuario {lance.usuario.nome} deu um lance de {lance.valor}')
